@@ -2,18 +2,18 @@ package onboarding;
 
 import java.util.*;
 import java.util.stream.Collectors;
+/*
+
+[기능 목록]
+1. 친구 추천 점수를 기록하기 위해 Map<> 타입의 변수를 초기화 하기
+2. 현재 유저와 친구인 사람의 이름을 리스트로 반환하기
+3. 내 타임라인 방문자들의 친구 추천 점수를 올리기 (단, 2번 메서드를 활용하여 이미 친구인 사람이 방문했을 경우는 점수를 올리지 않는다.)
+4. 나와 함께 아는 친구를 바탕으로 추천 스코어 반영하기
+5. Map 형의 친구 추천 스코어를 Value 를 기준으로 하여 정렬한 후, 리스트로 변환하기 (단, value 가 0인 Key는 변환하지 않는다.)
+
+*/
 
 public class Problem7 {
-
-    /*
-    [기능 목록]
-    1. 친구 추천 점수를 기록하기 위해 Map<> 타입의 변수를 초기화 하기
-    2. 현재 유저와 친구인 사람의 이름을 리스트로 반환하기
-    3. 내 타임라인 방문자들의 친구 추천 점수를 올리기
-        (단, 2번 메서드를 활용하여 이미 친구인 사람이 방문했을 경우는 점수를 올리지 않는다.)
-    4. 나와 함께 아는 친구를 바탕으로 추천 스코어 반영하기
-    5. Map 형의 친구 추천 스코어를 Value 를 기준으로 하여 정렬한 후, 리스트로 변환하기 (단, value 가 0인 Key는 변환하지 않는다.)
-     */
 
     // 추천 친구 스코어를 기록하기 위한 recommendScore 셋팅
     public static Map<String, Integer> initRecommendScore(String user, List<List<String>> friends, List<String> visitors) {
@@ -50,29 +50,6 @@ public class Problem7 {
             }
         }
         return userFriends;
-    }
-
-    // 모든 유저 이름 가져오기 (방문자 및, 친구 관계 리스트를 바탕으로 모든 유저의 이름을 가져온다.)
-    public static List<String> loadAllUsers(List<List<String>> friends, List<String> visitors) {
-        List<String> allUsers = new ArrayList<>();
-
-        // 친구 관계 2차원 리스트 에서 모든 유저 목록 추출 (중복된 이름은 추가하지 않는다.)
-        for (List<String> friend : friends) {
-            for (String name : friend) {
-                if (!allUsers.contains(name)) {
-                    allUsers.add(name);
-                }
-            }
-        }
-
-        // 방문 유저 리스트에서 모든 유저 목록 추출 (중복된 이름은 추가하지 않는다.)
-        for (String visitor : visitors) {
-            if (!allUsers.contains(visitor)) {
-                allUsers.add(visitor);
-            }
-        }
-
-        return allUsers;
     }
 
     // 내 타임라인 방문자 추천 스코어 반영하기 (단, 이미 친구인 사람은 스코어를 고려하지 않는다.)
@@ -115,7 +92,6 @@ public class Problem7 {
 
         List<String> result = new ArrayList<>();
 
-        // 221030 : 19:00 추가사항
         // 이름순으로 먼저 정렬한 후
         // Value 값으로 정렬한다.
         List<Map.Entry<String, Integer>> entries = recommendScore.entrySet().stream()
@@ -124,7 +100,6 @@ public class Problem7 {
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toList());
 
-        // 221030 : 19:00 추가사항
         // 반환하는 List 의 크기는 5가 넘지 않아야 하는 조건 추가 -> result.size() < 5
         // 이미 내 친구인 유저인지 판별하는 조건 추가 -> !myFriends.contains(entry.getKey())
         for (Map.Entry<String, Integer> entry : entries) {

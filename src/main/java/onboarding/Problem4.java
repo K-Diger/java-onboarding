@@ -3,23 +3,14 @@ package onboarding;
 import java.util.HashMap;
 import java.util.Map;
 
-// 방법 1. 아스키 값에 대한 규칙으로 변환하기
-// HashMap에 각 변환값에 대한 매핑시켜놓기 (일단 좋아보이진 않음 <너무 하드코딩 느낌이 난다.>)
+/*
+1. 대문자 아스키코드 변환 Map 을 생성하는 메서드
+2. 소문자 아스키코드 변환 Map 을 생성하는 메서드
+3. 실제 입력 값과 1, 2 메서드로 변환된 Map 을 매핑하는 메서드
+4.
+
+ */
 public class Problem4 {
-
-    /*
-    A -> Z ==> A + 25
-    a -> z ==> a + 25
-
-    B -> Y ==> B + 23
-    b -> y ==> b + 23
-     */
-
-
-    /*
-    65 = 90
-    66 = 89
-     */
 
     // 대문자 아스키코드 변환 Map 을 생성하는 메서드
     public static Map<String, String> reverseASCIIForUpperCase() {
@@ -49,28 +40,11 @@ public class Problem4 {
         return lowerCaseMappingMap;
     }
 
-    // 실제 입력 값과 청개구리 Map 을 매핑하기 위한 메서드를 호출하는 메서드
-    public static String callMapping(
-            String word, Map<String, String> upperCaseMappingMap, Map<String, String> lowerCaseMappingMap) {
-
-        int wordLength = word.length();
-
-        StringBuilder result = new StringBuilder();
-
-        // 문자열을 순회하며 각 문자에 대하여 청개구리 매핑 메서드를 호출한다.
-        for (int i = 0; i < wordLength; i++) {
-            result.append(doMap(word, i, upperCaseMappingMap, lowerCaseMappingMap));
-        }
-        
-        // 매핑된 값 반환
-        return result.toString();
-    }
-
+    // 실제로 매핑을 하는 메서드
     public static String doMap(
             String word, int index,
             Map<String, String> upperCaseMappingMap, Map<String, String> lowerCaseMappingMap) {
 
-        // 2022/10/30 추가사항
         // 공백을 포함하여 알파벳 외의 문자는 변환하지 않는 조건 추가
         if (word.charAt(index) < 65 ||
                 (word.charAt(index) > 91 && word.charAt(index) < 97) ||
@@ -91,6 +65,23 @@ public class Problem4 {
         // 원래라면 Exception 을 던져야하지만
         // 그렇게하면 제공된 테스트 케이스에 영향이 있으므로 처리하지 않았다.
         return "";
+    }
+
+    // 실제 입력 값과 청개구리 Map 을 매핑하기 위한 메서드를 호출하는 메서드
+    public static String callMapping(
+            String word, Map<String, String> upperCaseMappingMap, Map<String, String> lowerCaseMappingMap) {
+
+        int wordLength = word.length();
+
+        StringBuilder result = new StringBuilder();
+
+        // 문자열을 순회하며 각 문자에 대하여 청개구리 매핑 메서드를 호출한다.
+        for (int i = 0; i < wordLength; i++) {
+            result.append(doMap(word, i, upperCaseMappingMap, lowerCaseMappingMap));
+        }
+
+        // 매핑된 값 반환
+        return result.toString();
     }
 
     public static String solution(String word) {

@@ -2,6 +2,18 @@ package onboarding;
 
 import java.util.List;
 
+/*
+
+[기능 목록]
+1. 두 수 중 더 큰값을 반환하는 메서드
+2. 페이지 자릿수 합을 구하는 메서드
+3. 페이지 자릿수 곱을 구하는 메서드
+4. 자릿수의 합과 곱 둘 중 큰 값이 무엇인지 구하는 메서드
+5. 포비의 최대 자릿수 값과 크롱의 최대 자릿수 값을 비교하여 요구사항에 맞춰 반환하는 메서드
+6. 예외처리를 위한 메서드 (왼쪽페이지 - 오른쪽 페이지 가 -1 보다 큰 값이 나오는 경우는 잘못 펼친 것)
+
+ */
+
 class Problem1 {
     
     // 왼쪽 페이지가 홀수인 조건을 검사하는 메서드
@@ -92,16 +104,14 @@ class Problem1 {
     public static int pobiVersusCrong(int pobiValue, int crongValue) {
         if (crongValue == pobiValue) {
             return 0;
-        }
-        else if (crongValue < pobiValue) {
+        } else if (crongValue < pobiValue) {
             return 1;
-        }
-        else if (crongValue > pobiValue) {
+        } else if (crongValue > pobiValue) {
             return 2;
         }
         return -1;
     }
-    
+
     // 예외처리를 위한 메서드
     public static boolean isException(List<Integer> pageList) {
         // 두 페이지 값을 뺏을 때 그 값이 1 이상 차이가 나면 잘못 펼친것이므로 예외
